@@ -1,5 +1,8 @@
 package main;
 
 public class Cuirasser extends Bateau {
-    private int health = 4;
+    public Cuirasser(){
+        this.health = 4;
+        this.sunk = false;
+    }
 }

@@ -1,5 +1,8 @@
 package main;
 
 public class PorteAvion extends Bateau {
-    private int health = 5;
+    public PorteAvion(){
+        this.health = 5;
+        this.sunk = false;
+    }
 }

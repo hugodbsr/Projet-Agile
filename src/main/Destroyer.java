@@ -1,7 +1,8 @@
 package main;
 
 public class Destroyer extends Bateau {
-    private int health = 2;
-
-    public 
+    public Destroyer(){
+        this.health = 2;
+        this.sunk = false;
+    }
 }

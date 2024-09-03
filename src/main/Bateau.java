@@ -4,8 +4,8 @@ package main;
  * Bateau
  */
 public abstract class Bateau {
-    private int health;
-    private boolean sunk;
+    protected int health;
+    protected boolean sunk;
 
     public int getHealth(){
         return health;
@@ -17,5 +17,5 @@ public abstract class Bateau {
     
     public boolean isSunk(){
         return sunk;
-    };
+    }
 }
