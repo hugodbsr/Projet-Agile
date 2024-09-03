@@ -23,8 +23,8 @@ public class Main {
         Cuirasser playerCuirasser = new Cuirasser();
         Destroyer playerDestroyer = new Destroyer();
         PorteAvion playerPorteAvion = new PorteAvion();
-
-        System.out.println(playerCroiseur.getName());
+        playerPlateau.placerBateau(3, 'E', playerPorteAvion);
+        System.out.println(playerPlateau.getStringPlateau());
 
         //création des bateaux du bot
         Croiseur botCroiseur = new Croiseur();
