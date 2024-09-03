@@ -56,5 +56,19 @@ public class Main {
         Cuirasser botCuirasser = new Cuirasser();
         Destroyer botDestroyer = new Destroyer();
         PorteAvion botPorteAvion = new PorteAvion();
+
+        botPlateau.setBateau(3, 3, botPorteAvion);
+
+        tryShoot(playerPlateau, botPlateau, 3, 3);
+
+        System.out.println(botPlateau.getStringPlateau());
+        System.out.println(playerPlateau.getHimPlateau(botPlateau));
+    }
+
+    public static void tryShoot(Plateau shooter, Plateau target, int x, int y){
+        if(target.shootAvailable(x, y)){
+            target.fire(x, y);
+            shooter.shooted(x, y);
+        }
     }
 }
