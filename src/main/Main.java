@@ -1,14 +1,35 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+
 /**
  * Main
  */
 public class Main {
 
     final static String CLEAR = String.format("\033[2J");
+    final static String cheminMessage = System.getProperty("user.dir") + "/res/main/Message.txt";
 
     public static void main(String[] args) {
         System.out.print(CLEAR);
+
+        //recuperation des messages
+        ArrayList<String> messages = new ArrayList<String>();
+        try(BufferedReader bw = new BufferedReader(new FileReader(new File(cheminMessage)))){
+            while(bw.ready()){
+                messages.add(bw.readLine());
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println(e);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
+        System.out.println(messages);
 
         //création des plateaux
         Plateau playerPlateau = new Plateau(true);
