@@ -10,3 +10,4 @@ C'est au tour de {Player} !
 {Number} bateau ont été détecté dans cette zone !
 Un {Boat} a été détecté dans cette zone !
 Aucun bateau n'a été détecté dans cette zone !
+La partie commence !
