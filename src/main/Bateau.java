@@ -9,7 +9,7 @@ public abstract class Bateau {
     protected String color;
 
     public int getHealth(){
-        return health;
+        return health + 5;
     }
 
     public String getName(){
