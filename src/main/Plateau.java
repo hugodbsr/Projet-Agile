@@ -72,39 +72,6 @@ public class Plateau {
         return this.plt[x][y];
     }
 
-    public void placerBateau(int x , char y, Bateau bt){
-        int newX = x - 1;
-        int newY = y - 'A';
-        if (newY<0){
-            newY = 0;
-        }
-        if (newY>9){
-            newY = 9;
-        }
-        
-        if (newX+bt.health > 10){
-            while(newX+bt.health > 10){
-                newX = newX - 1;
-            }
-            for(int i=0;i<bt.health;i++){
-                this.plt[newY][newX+i] = bt;
-            }
-        }
-        else if(newX < 0){
-            while(newX < 0 ){
-                newX = newX + 1;
-            }
-            for(int i=0;i<bt.health;i++){
-                this.plt[newY][newX+i] = bt;
-            }
-        }
-        else{
-            for(int i = 0;i<bt.health;i++){
-                this.plt[newY][newX+i] = bt;
-            }
-        }
-    }
-
     public void reset() {
         this.plt = new Bateau[10][10];
         this.tirs = new boolean[10][10];
