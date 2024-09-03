@@ -8,9 +8,9 @@ public abstract class Bateau {
     protected boolean sunk;
     protected String color;
 
-    public int getHealth(){
-        return health;
-    }
+    // public int getHealth(){
+    //     return health;
+    // }
 
     public String getName(){
         return this.color + this.getClass().getSimpleName() + "\u001B[0m";
