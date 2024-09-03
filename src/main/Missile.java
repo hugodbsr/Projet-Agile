@@ -1,7 +1,5 @@
 package main;
 
-public enum Missile {
-    CLASSIC,
-    RECO,
-    HEAVY;
+public class Missile<T> {
+    // CLASSIC, RECO, HEAVY;
 }

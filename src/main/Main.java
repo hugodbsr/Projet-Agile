@@ -53,9 +53,13 @@ public class Main {
         Destroyer botDestroyer = new Destroyer();
         PorteAvion botPorteAvion = new PorteAvion();
 
-        botPlateau.setBateau(3, 3, botPorteAvion);
+        botPlateau.placerBateau(3, 'D', botPorteAvion);
 
+        tryShoot(playerPlateau, botPlateau, 3, 2);
         tryShoot(playerPlateau, botPlateau, 3, 3);
+        tryShoot(playerPlateau, botPlateau, 3, 4);
+        tryShoot(playerPlateau, botPlateau, 3, 5);
+        tryShoot(playerPlateau, botPlateau, 3, 7);
 
         System.out.println(botPlateau.getStringPlateau());
         System.out.println(playerPlateau.getHimPlateau(botPlateau));
@@ -64,7 +68,9 @@ public class Main {
     public static void tryShoot(Plateau shooter, Plateau target, int x, int y){
         if(target.shootAvailable(x, y)){
             target.fire(x, y);
-            shooter.shooted(x, y);
+        }else {
+            System.out.println("MISS");
         }
+        shooter.shooted(x, y);
     }
 }
