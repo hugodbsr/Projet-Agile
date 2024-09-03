@@ -13,7 +13,7 @@ public abstract class Bateau {
     }
 
     public String getName(){
-        return this.color + this.getClass().getName() + "\u001B[0m";
+        return this.color + this.getClass().getSimpleName() + "\u001B[0m";
     }
     
     public boolean isSunk(){

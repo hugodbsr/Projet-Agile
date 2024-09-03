@@ -4,6 +4,6 @@ public class Croiseur extends Bateau {
     public Croiseur(){
         this.health = 3;
         this.sunk = false;
-        //définir color
+        this.color = "\u001B[31m";
     }
 }

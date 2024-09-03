@@ -24,6 +24,8 @@ public class Main {
         Destroyer playerDestroyer = new Destroyer();
         PorteAvion playerPorteAvion = new PorteAvion();
 
+        System.out.println(playerCroiseur.getName());
+
         //création des bateaux du bot
         Croiseur botCroiseur = new Croiseur();
         Croiseur botCroiseur2 = new Croiseur();
