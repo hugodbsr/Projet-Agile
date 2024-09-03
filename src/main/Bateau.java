@@ -17,6 +17,9 @@ public abstract class Bateau {
     }
     
     public boolean isSunk(){
+        if(this.health <= 0){
+            this.sunk = true;
+        }
         return sunk;
     }
 
