@@ -12,7 +12,6 @@
 ### Ce que nous allons faire durant le prochain sprint
 - Utiliser l'agilité
 - Placer Bateau
-- Pivoter les bateaux quand on les places
 - Possibilité de tirer
 
 ## Rétrospective
@@ -23,7 +22,7 @@ Nous avons butté sur l'affichage des plateaux et l'implémentation de ceux-ci.
 En soit, nous avons terminé les étapes que nous nous étions fixés mais celles-ci seront sûrement soumis à des modifications, par exemple la classe Plateau devra surement être modifer.
 * Étiez -vous prêts au moment de la démo ?
 Oui
-* Nous communiquons bien, nous nous sommes bien répartis les tâches.
+Nous communiquons bien, nous nous sommes bien répartis les tâches.
 
 ### PDCA
 * De tous ces éléments quel est celui que vous voulez améliorer ?
