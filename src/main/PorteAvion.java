@@ -4,7 +4,6 @@ public class PorteAvion extends Bateau {
     public PorteAvion(){
         this.health = 5;
         this.sunk = false;
-        //définir color
-
+        this.color = "\u001B[34m";
     }
 }

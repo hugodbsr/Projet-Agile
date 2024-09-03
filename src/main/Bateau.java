@@ -23,4 +23,8 @@ public abstract class Bateau {
     public String getColor(){
         return color;
     }
+
+    public void hit(){
+        this.health--;
+    }
 }

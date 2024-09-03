@@ -4,7 +4,6 @@ public class Destroyer extends Bateau {
     public Destroyer(){
         this.health = 2;
         this.sunk = false;
-        //définir color
-
+        this.color = "\u001B[33m";
     }
 }

@@ -34,17 +34,17 @@ public class Plateau {
         return res + " | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|";
     }
 
-    public String getHimPlateau() {
+    public String getHimPlateau(Plateau target) {
         String res = new String();
         char lettre = 'A';
         for (int i = 0; i < this.tirs.length; i++) {
             res += lettre;
             for (int j = 0; j < this.tirs[i].length; j++) {
                 if (this.tirs[i][j]) {
-                    if (this.plt[i][j] == null) {
-                        res += "|  X";
+                    if (target.plt[i][j] == null) {
+                        res += "| X";
                     } else {
-                        res += "|  \u001B[31mX";
+                        res += "| \u001B[31m" + "X" + "\u001B[00m";
                     }
                 } else {
                     res += "|  ";
@@ -75,5 +75,17 @@ public class Plateau {
     public void reset() {
         this.plt = new Bateau[10][10];
         this.tirs = new boolean[10][10];
+    }
+
+    public boolean shootAvailable(int x, int y){
+        return this.plt[x][y] != null;
+    }
+
+    public void fire(int x, int y){
+        this.plt[x][y].hit();
+    }
+
+    public void shooted(int x, int y){
+        this.tirs[x][y] = true;
     }
 }
