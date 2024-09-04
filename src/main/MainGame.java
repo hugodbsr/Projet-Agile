@@ -46,18 +46,18 @@ public class MainGame {
         Plateau botPlateau = new Plateau(false);
 
         // Création et placement des bateaux du joueur
-        playerPlateau.placerBateau(3, 'C', new Croiseur());
-        playerPlateau.placerBateau(8, 'E', new Croiseur());
-        playerPlateau.placerBateau(6, 'F', new Cuirasser());
-        playerPlateau.placerBateau(2, 'B', new Destroyer());
-        playerPlateau.placerBateau(4, 'G', new PorteAvion());
+        playerPlateau.placerBateau(3, 'C', new Croiseur(), true);
+        playerPlateau.placerBateau(8, 'E', new Croiseur(), false);
+        playerPlateau.placerBateau(6, 'F', new Cuirasser(), true);
+        playerPlateau.placerBateau(2, 'B', new Destroyer(), false);
+        playerPlateau.placerBateau(4, 'G', new PorteAvion(), true);
 
         // Création et placement des bateaux du bot
-        botPlateau.placerBateau(3, 'A', new PorteAvion());
-        botPlateau.placerBateau(8, 'E', new Cuirasser());
-        botPlateau.placerBateau(6, 'F', new Destroyer());
-        botPlateau.placerBateau(2, 'B', new Croiseur());
-        botPlateau.placerBateau(4, 'G', new Croiseur());
+        botPlateau.placerBateau(3, 'A', new PorteAvion(), true);
+        botPlateau.placerBateau(8, 'E', new Cuirasser(), false);
+        botPlateau.placerBateau(6, 'F', new Destroyer(), true);
+        botPlateau.placerBateau(2, 'B', new Croiseur(), false);
+        botPlateau.placerBateau(4, 'G', new Croiseur(), true);
 
         while (!gameFinished) {
             boolean playerTurn = true;
@@ -97,8 +97,8 @@ public class MainGame {
                 int x = tir.charAt(0) - 'A';
                 int y = Integer.parseInt(tir.substring(1)) - 1;
 
-                if (botPlateau.shootAvailable(x, y)) {
-                    botPlateau.fire(x, y);
+                if (botPlateau.shootAvailable(x, y, missile)) {
+                    botPlateau.fire(x, y, missile);
                     Bateau boat = botPlateau.getCase(x, y);
                     if (boat != null) {
                         if (boat.isSunk()) {

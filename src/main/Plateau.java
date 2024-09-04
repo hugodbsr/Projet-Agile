@@ -86,8 +86,31 @@ public class Plateau {
         return this.plt[x][y] != null;
     }
 
+    public boolean shootAvailable(int x, int y, Missile mis){
+        if (mis == Missile.RECO) return true;
+        return this.plt[x][y] != null;
+    }
+
     public void fire(int x, int y){
         this.plt[x][y].hit();
+    }
+
+    public void fire(int x, int y, Missile mis){
+        int posx = x;
+        int posy = y;
+        if (mis == Missile.RECO) {
+            posx = -1;
+            posy = -1;
+            for (int i = 0; i < Missile.RECO.getZone().length; i++) {
+                for (int j = 0; j < Missile.RECO.getZone()[1].length; j++) {
+                    if (posx >= 0 && posx <= 9) {
+                        
+                    }
+                }
+            }
+        } else {
+            this.plt[x][y].hit();
+        }
     }
 
     public void shooted(int x, int y){
