@@ -26,7 +26,7 @@ public class Plateau {
                     res += "|  ";
                 } else {
                     if(ennemi.tirs[i][j]) {
-                        res += "|X";
+                        res += "| \u001B[31m" + "X" + "\u001B[00m";
                     }
                     else{
                         res += "| " + this.plt[i][j].getColor() + "B" + "\u001B[0m";
@@ -94,37 +94,46 @@ public class Plateau {
         this.tirs[x][y] = true;
     }
 
-    public void placerBateau(int x , char y, Bateau bt){
+    public void placerBateau(int x , char y, Bateau bt,boolean horizontal){
         int newX = x - 1;
         int newY = y - 'A';
-        if (newY<0){
-            newY = 0;
-        }
-        if (newY>9){
-            newY = 9;
-        }
-        
-        if (newX+bt.health > 10){
-            while(newX+bt.health > 10){
-                newX = newX - 1;
+        if (horizontal){
+            if (newY<0){
+                newY = 0;
             }
-            for(int i=0;i<bt.health;i++){
-                this.plt[newY][newX+i] = bt;
+            if (newY>9){
+                newY = 9;
             }
-        }
-        else if(newX < 0){
-            while(newX < 0 ){
-                newX = newX + 1;
+            
+            if (newX+bt.health > 10){
+                while(newX+bt.health > 10){
+                    newX = newX - 1;
+                }
+                for(int i=0;i<bt.health;i++){
+                    
+                }
+                for(int i=0;i<bt.health;i++){
+                    this.plt[newY][newX+i] = bt;
+                }
             }
-            for(int i=0;i<bt.health;i++){
-                this.plt[newY][newX+i] = bt;
+            else if(newX < 0){
+                while(newX < 0 ){
+                    newX = newX + 1;
+                }
+                for(int i=0;i<bt.health;i++){
+                    this.plt[newY][newX+i] = bt;
+                }
+            }
+            else{
+                for(int i = 0;i<bt.health;i++){
+                    this.plt[newY][newX+i] = bt;
+                }
             }
         }
         else{
-            for(int i = 0;i<bt.health;i++){
-                this.plt[newY][newX+i] = bt;
-            }
+            pivoterBateau(x, y, bt);
         }
+        
     }
 
     public boolean checkIfGameFinished() {
@@ -137,5 +146,37 @@ public class Plateau {
             }
         }
         return true;
+    }
+
+    public void pivoterBateau(int x, char y, Bateau bt){
+        int newX = x-1;
+        int newY = y-'A';
+        if(newX<0){
+            newX = 0;
+        }
+        if(newX > 9){
+            newX = 9;
+        }
+        if (newY+bt.health > 10){
+            while(newY+bt.health > 10){
+                newY = newY - 1;
+            }
+            for(int i=0;i<bt.health;i++){
+                this.plt[newY+i][newX] = bt;
+            }
+        }
+        else if(newY < 0){
+            while(newY < 0 ){
+                newY = 0;
+            }
+            for(int i=0;i<bt.health;i++){
+                this.plt[newY+i][newX] = bt;
+            }
+        }
+        else{
+            for(int i = 0;i<bt.health;i++){
+                this.plt[newY+i][newX] = bt;
+            }
+        }
     }
 }
