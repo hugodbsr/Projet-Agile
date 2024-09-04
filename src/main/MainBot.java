@@ -58,11 +58,50 @@ public class MainBot {
         Plateau botPlateau = new Plateau(false);
 
         // Création et placement des bateaux du joueur
-        playerPlateau.placerBateau(3, 'C', new Croiseur(), true);
-        playerPlateau.placerBateau(8, 'E', new Croiseur(), false);
-        playerPlateau.placerBateau(6, 'F', new Cuirasser(), true);
-        playerPlateau.placerBateau(2, 'B', new Destroyer(), false);
-        playerPlateau.placerBateau(4, 'G', new PorteAvion(), true);
+        String posBat = Saisie.getPositionBateau();
+        System.out.println(posBat);
+        char yBat = posBat.charAt(0);
+        int xBat = Integer.parseInt(posBat.substring(1));
+        char HorVer = Saisie.getHorVer().charAt(0);
+        boolean horizontal = (HorVer=='H');
+        playerPlateau.placerBateau(xBat, yBat, new Croiseur(), horizontal);
+        System.out.println(playerPlateau.getStringPlateau(botPlateau));
+        int nboat = 0;
+
+        while(nboat<4){
+            posBat = Saisie.getPositionBateau();
+            System.out.println(posBat);
+            yBat = posBat.charAt(0);
+            xBat = Integer.parseInt(posBat.substring(1));
+            HorVer = Saisie.getHorVer().charAt(0);
+            horizontal = (HorVer=='H');
+            if(nboat==0){
+                if (playerPlateau.placerBateau(xBat, yBat, new Croiseur(), horizontal)){
+                    nboat++;
+                    System.out.println(playerPlateau.getStringPlateau(botPlateau));
+                }
+            }
+            if(nboat==1){
+                if (playerPlateau.placerBateau(xBat, yBat, new Destroyer(), horizontal)){
+                    nboat++;
+                    System.out.println(playerPlateau.getStringPlateau(botPlateau));
+                }
+            }
+            if(nboat==2){
+                if (playerPlateau.placerBateau(xBat, yBat, new Cuirasser(), horizontal)){
+                    nboat++;
+                    System.out.println(playerPlateau.getStringPlateau(botPlateau));
+                }
+            }
+            if(nboat==3){
+                if (playerPlateau.placerBateau(xBat, yBat, new PorteAvion(), horizontal)){
+                    nboat++;
+                    System.out.println(playerPlateau.getStringPlateau(botPlateau));
+                }
+            }
+            
+        }
+        
 
         // Création et placement des bateaux du bot
         botPlateau.placerBateau(3, 'A', new PorteAvion(), true);
