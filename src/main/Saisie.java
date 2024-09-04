@@ -25,7 +25,6 @@ public class Saisie {
         boolean correct = false;
         String texte = "";
         while (!correct) {
-            System.out.print("Entrez les coordonnées de tir (ex : A5) : ");
             texte = getSaisie();
             if (texte.length() > 1 && texte.length() < 4) {
                 if ((texte.charAt(0) >= 'A' && texte.charAt(0) <= 'Z')
@@ -53,7 +52,7 @@ public class Saisie {
         boolean correct = false;
         String texte = "";
         while (!correct) {
-            System.out.print("Entrez les coordonnées du bateau (H pour horizontal et V pour vertical) (ex : A5) : ");
+            System.out.print("Entrez les coordonnées du bateau (ex : A5) : ");
             texte = getSaisie();
             if (texte.length() > 1 && texte.length() < 4) {
                 if ((texte.charAt(0) >= 'A' && texte.charAt(0) <= 'Z')
@@ -81,7 +80,7 @@ public class Saisie {
         boolean correct = false;
         String texte = "";
         while (!correct) {
-            System.out.print("H ou V ?");
+            System.out.print("H ou V ? ");
             texte = getSaisie();
             if (texte.length() == 1 ) {
                 if ((texte.charAt(0) == 'H' || texte.charAt(0) == 'V')
