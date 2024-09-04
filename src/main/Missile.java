@@ -1,9 +1,9 @@
 package main;
 
 public enum Missile {
-    CLASSIC(0, new boolean[][]{{true}}),
-    RECO(3, new boolean[][]{{true,true,true},{true,true,true},{true,true,true}}),
-    HEAVY(3, new boolean[][]{{false,true,false},{false,true,false},{false,true,false}});
+    CLASSIC(0, new boolean[][] { { true } }),
+    RECO(3, new boolean[][] { { true, true, true }, { true, true, true }, { true, true, true } }),
+    HEAVY(3, new boolean[][] { { false, true, false }, { false, true, false }, { false, true, false } });
 
     private boolean[][] zone;
     private int delay;

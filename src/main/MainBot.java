@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class MainGame {
+public class MainBot {
 
     final static int TEXTSPEED = 10;
     final static String CLEAR = String.format("\033[2J");
@@ -47,10 +47,9 @@ public class MainGame {
         diplayText(messages.get(15));
 
         TimeUnit.SECONDS.sleep(3);
-        
 
         System.out.print(CLEAR);
-        TimeUnit.SECONDS.sleep(1);      
+        TimeUnit.SECONDS.sleep(1);
         System.out.println(messages.get(12));
         TimeUnit.SECONDS.sleep(1);
         System.out.print(CLEAR);
@@ -106,7 +105,7 @@ public class MainGame {
                 String tir = Saisie.getPositionTir();
 
                 System.out.print(CLEAR);
-                TimeUnit.SECONDS.sleep(1);    
+                TimeUnit.SECONDS.sleep(1);
 
                 int x = tir.charAt(0) - 'A';
                 int y = Integer.parseInt(tir.substring(1)) - 1;
@@ -116,13 +115,14 @@ public class MainGame {
                     Bateau boat = botPlateau.getCase(x, y);
                     if (boat != null) {
                         if (boat.isSunk()) {
-                            System.out.println(messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", botName));
+                            System.out.println(
+                                    messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", botName));
                         } else {
                             System.out.println(messages.get(0).replace("{Player}", botName));
                         }
                         playerTurn = true;
                     } else {
-                        System.out.println(messages.get(6).replace("{Player}", playerName));  // Raté
+                        System.out.println(messages.get(6).replace("{Player}", playerName)); // Raté
                         playerTurn = false;
                     }
                 } else {
@@ -130,10 +130,12 @@ public class MainGame {
                     playerTurn = false;
                 }
                 if (missile == Missile.HEAVY) {
-                    if (y - 1 >= 0 && y - 1 <= 9) playerPlateau.shooted(x, y - 1);
-                    if (y + 1 >= 0 && y + 1 <= 9) playerPlateau.shooted(x, y + 1);
+                    if (y - 1 >= 0 && y - 1 <= 9)
+                        playerPlateau.shooted(x, y - 1);
+                    if (y + 1 >= 0 && y + 1 <= 9)
+                        playerPlateau.shooted(x, y + 1);
                     playerPlateau.shooted(x, y);
-                } else if (missile != Missile.RECO){
+                } else if (missile != Missile.RECO) {
                     playerPlateau.shooted(x, y);
                 }
 
@@ -162,7 +164,8 @@ public class MainGame {
                         Bateau boat = playerPlateau.getCase(botX, botY);
                         if (boat != null) {
                             if (boat.isSunk()) {
-                                System.out.println(messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", playerName));
+                                System.out.println(messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}",
+                                        playerName));
                             } else {
                                 System.out.println(messages.get(0).replace("{Player}", playerName));
                             }
@@ -184,16 +187,16 @@ public class MainGame {
                     }
                 }
             }
-            
+
             tour++;
-            TimeUnit.SECONDS.sleep(1);   
+            TimeUnit.SECONDS.sleep(1);
             System.out.print(CLEAR);
-            TimeUnit.SECONDS.sleep(1);  
+            TimeUnit.SECONDS.sleep(1);
         }
     }
 
-    static void diplayText(String texte) throws InterruptedException{
-        for(int i = 0; i<texte.length();i++){
+    static void diplayText(String texte) throws InterruptedException {
+        for (int i = 0; i < texte.length(); i++) {
             System.out.print(texte.charAt(i));
             TimeUnit.MILLISECONDS.sleep(TEXTSPEED);
         }
