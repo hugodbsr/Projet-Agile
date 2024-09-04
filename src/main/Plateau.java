@@ -99,15 +99,21 @@ public class Plateau {
         int posx = x;
         int posy = y;
         if (mis == Missile.RECO) {
-            posx = -1;
-            posy = -1;
+            boolean find = false;
+            posx--;
+            posy--;
             for (int i = 0; i < Missile.RECO.getZone().length; i++) {
                 for (int j = 0; j < Missile.RECO.getZone()[1].length; j++) {
-                    if (posx >= 0 && posx <= 9) {
-                        
+                    if ((posx >= 0 && posx <= 9) && (posy >= 0 && posy <= 9) && Missile.RECO.getZone()[i][j]) {
+                        if (plt[posx][posy] != null) {
+                            find = true;
+                        }
                     }
+                    posx++;
                 }
+                posy++;
             }
+            if (find) System.out.println("\u001B[31mUn navire a été détecté dans cette zone !\u001B[00m");
         } else {
             this.plt[x][y].hit();
         }
