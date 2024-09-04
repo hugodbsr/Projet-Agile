@@ -82,17 +82,9 @@ public class Plateau {
         this.tirs = new boolean[10][10];
     }
 
-    public boolean shootAvailable(int x, int y){
-        return this.plt[x][y] != null;
-    }
-
-    public boolean shootAvailable(int x, int y, Missile mis){
+    public boolean shootAvailable(int x, int y, Missile mis, Plateau p){
         if (mis == Missile.RECO) return true;
-        return this.plt[x][y] != null;
-    }
-
-    public void fire(int x, int y){
-        this.plt[x][y].hit();
+        return (this.plt[x][y] != null && !p.tirs[x][y]);
     }
 
     public void fire(int x, int y, Missile mis){

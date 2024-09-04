@@ -97,7 +97,7 @@ public class MainGame {
                 int x = tir.charAt(0) - 'A';
                 int y = Integer.parseInt(tir.substring(1)) - 1;
 
-                if (botPlateau.shootAvailable(x, y, missile)) {
+                if (botPlateau.shootAvailable(x, y, missile, playerPlateau)) {
                     botPlateau.fire(x, y, missile);
                     Bateau boat = botPlateau.getCase(x, y);
                     if (boat != null) {
@@ -112,7 +112,7 @@ public class MainGame {
                         playerTurn = false;
                     }
                 } else {
-                    System.out.println(messages.get(6).replace("{Player}", playerName));
+                    System.out.println("Tire déjà effectuer, vous perdez un tour !");
                     playerTurn = false;
                 }
                 playerPlateau.shooted(x, y);
@@ -134,8 +134,8 @@ public class MainGame {
                     int botX = (int) (Math.random() * 10);
                     int botY = (int) (Math.random() * 10);
 
-                    if (playerPlateau.shootAvailable(botX, botY)) {
-                        playerPlateau.fire(botX, botY);
+                    if (playerPlateau.shootAvailable(botX, botY, Missile.CLASSIC, botPlateau)) {
+                        playerPlateau.fire(botX, botY, Missile.CLASSIC);
                         Bateau boat = playerPlateau.getCase(botX, botY);
                         if (boat != null) {
                             if (boat.isSunk()) {
@@ -149,7 +149,7 @@ public class MainGame {
                             botTurn = false;
                         }
                     } else {
-                        System.out.println(messages.get(6).replace("{Player}", botName));
+                        System.out.println("Tire déjà effectuer, vous perdez un tour !");
                         botTurn = false;
                     }
                     botPlateau.shooted(botX, botY);
