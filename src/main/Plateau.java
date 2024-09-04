@@ -16,6 +16,10 @@ public class Plateau {
         this.our = our;
     }
 
+    public boolean getOur() {
+        return this.our;
+    }
+
     public String getStringPlateau(Plateau ennemi) {
         String res = new String();
         char lettre = 'A';
