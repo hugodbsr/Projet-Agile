@@ -103,6 +103,7 @@ public class MainGame {
 
                 System.out.println("Missile sélectionné : " + missile);
 
+                System.out.print("Entrez les coordonnées de tir (ex : A5) : ");
                 String tir = Saisie.getPositionTir();
 
                 System.out.print(CLEAR);
