@@ -84,7 +84,7 @@ public class MainMulti {
     public static void gamePlayer1() {
         int waitMsg = 0;
         try {
-            while (checkPLayer2()) {
+            while (!checkPLayer2()) {
                 System.out.println(CLEAR);
                 System.out.println("Bonjour \u001B[35m" + currentPlayer + "\u001B[00m, bienvenue dans \u001B[36mSink The Boat\u001B[00m !");
                 String waitingMsg = new String();
