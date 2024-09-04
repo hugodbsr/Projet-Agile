@@ -16,7 +16,7 @@ public class Plateau {
         this.our = our;
     }
 
-    public String getStringPlateau() {
+    public String getStringPlateau(Plateau ennemi) {
         String res = new String();
         char lettre = 'A';
         for (int i = 0; i < this.plt.length; i++) {
@@ -25,7 +25,12 @@ public class Plateau {
                 if (this.plt[i][j] == null) {
                     res += "|  ";
                 } else {
-                    res += "| B";
+                    if(ennemi.tirs[i][j]) {
+                        res += "|X";
+                    }
+                    else{
+                        res += "| " + this.plt[i][j].getColor() + "B" + "\u001B[0m";
+                    }
                 }
             }
             lettre++;
@@ -120,5 +125,17 @@ public class Plateau {
                 this.plt[newY][newX+i] = bt;
             }
         }
+    }
+
+    public boolean checkIfGameFinished() {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                Bateau bateau = getCase(i, j);
+                if (bateau != null && !bateau.isSunk()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
