@@ -32,13 +32,15 @@ public class Saisie {
                         if((texte.length()==3) && texte.charAt(1)=='1'){
                             if((texte.charAt(2)=='0')){
                                 correct = true;
+                                return texte;
                             }
                         } else {
                             correct = true;
+                            return texte;
                         }
                     }
                 }
-                System.err.println("Veillez entrer des coordonnées de tir dans le bon format (ex : A5)");             
+                System.err.println("Veillez entrer des coordonnées de tir dans le bon format (ex : A5)");       
             }
         }
         return texte;

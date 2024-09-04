@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainGame {
 
+    final static int TEXTSPEED = 10;
     final static String CLEAR = String.format("\033[2J");
     final static String cheminMessage = System.getProperty("user.dir") + "/res/main/Message.txt";
 
@@ -40,7 +41,19 @@ public class MainGame {
             System.err.println(e);
         }
 
+        diplayText(messages.get(14));
+        TimeUnit.SECONDS.sleep(1);
+        System.out.println();
+        diplayText(messages.get(15));
+
+        TimeUnit.SECONDS.sleep(1);
+        
+
+        System.out.print(CLEAR);
+        TimeUnit.SECONDS.sleep(1);      
         System.out.println(messages.get(12));
+        TimeUnit.SECONDS.sleep(1);
+        System.out.print(CLEAR);
 
         Plateau playerPlateau = new Plateau(true);
         Plateau botPlateau = new Plateau(false);
@@ -63,10 +76,6 @@ public class MainGame {
             boolean playerTurn = true;
 
             while (playerTurn && !gameFinished) {
-                System.out.println("Tour n°" + tour);
-                System.out.println("Carte de " + botName + " :" + System.lineSeparator());
-                System.out.println(playerPlateau.getHimPlateau(botPlateau) + System.lineSeparator());
-
                 Missile mis = Missile.CLASSIC;
                 System.out.println(messages.get(13));
                 System.out.println(mis.getAllMissiles());
@@ -84,15 +93,19 @@ public class MainGame {
                     System.out.println(e.getMessage());
                 }
 
+                System.out.println("Tour n°" + tour);
                 System.out.println("Carte de " + botName + " :" + System.lineSeparator());
                 System.out.println(playerPlateau.getHimPlateau(botPlateau) + System.lineSeparator());
                 System.out.println("Carte de " + playerName + " :" + System.lineSeparator());
                 System.out.println(playerPlateau.getStringPlateau(botPlateau) + System.lineSeparator());
 
-                System.out.println("Missile sélectionné " + missile);
+                System.out.println("Missile sélectionné : " + missile);
 
                 System.out.print("Entrez les coordonnées de tir (ex : A5) : ");
                 String tir = Saisie.getPositionTir();
+
+                System.out.print(CLEAR);
+                TimeUnit.SECONDS.sleep(1);    
 
                 int x = tir.charAt(0) - 'A';
                 int y = Integer.parseInt(tir.substring(1)) - 1;
@@ -104,7 +117,7 @@ public class MainGame {
                         if (boat.isSunk()) {
                             System.out.println(messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", botName));
                         } else {
-                            System.out.println(messages.get(0).replace("{Boat}", boat.getName()).replace("{Player}", botName));
+                            System.out.println(messages.get(0).replace("{Player}", botName));
                         }
                         playerTurn = true;
                     } else {
@@ -115,7 +128,9 @@ public class MainGame {
                     System.out.println(messages.get(6).replace("{Player}", playerName));
                     playerTurn = false;
                 }
-                playerPlateau.shooted(x, y);
+                if(missile != Missile.RECO){
+                    playerPlateau.shooted(x, y);
+                }
 
                 gameFinished = botPlateau.checkIfGameFinished();
                 if (gameFinished) {
@@ -123,6 +138,10 @@ public class MainGame {
                     break;
                 }
             }
+
+            TimeUnit.SECONDS.sleep(1);   
+            System.out.print(CLEAR);
+            TimeUnit.SECONDS.sleep(1);    
 
             if (!gameFinished) {
                 boolean botTurn = true;
@@ -141,7 +160,7 @@ public class MainGame {
                             if (boat.isSunk()) {
                                 System.out.println(messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", playerName));
                             } else {
-                                System.out.println(messages.get(0).replace("{Boat}", boat.getName()).replace("{Player}", playerName));
+                                System.out.println(messages.get(0).replace("{Player}", playerName));
                             }
                             botTurn = true;
                         } else {
@@ -161,6 +180,18 @@ public class MainGame {
                     }
                 }
             }
+
+            TimeUnit.SECONDS.sleep(1);   
+            System.out.print(CLEAR);
+            TimeUnit.SECONDS.sleep(1);  
         }
     }
+
+    static void diplayText(String texte) throws InterruptedException{
+        for(int i = 0; i<texte.length();i++){
+            System.out.print(texte.charAt(i));
+            TimeUnit.MILLISECONDS.sleep(TEXTSPEED);
+        }
+    }
+
 }

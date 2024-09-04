@@ -1,4 +1,4 @@
-Le {Boat} de {Player} a été touché !
+Un bateau de {Player} a été touché !
 Le {Boat} de {Player} a été détruit !
 {Player} a remporté la partie !
 Vous avez gagné !
@@ -12,3 +12,5 @@ Un {Boat} a été détecté dans cette zone !
 Aucun bateau n'a été détecté dans cette zone !
 La partie commence !
 Quel missile voulez-vous choisir ?
+Votre objectif est d'éliminer toute la flotte adverse.
+L'ennemi dispose de 2 croiseur, 1 cuirasser, 1 destroyer et 1 porte-avions.
