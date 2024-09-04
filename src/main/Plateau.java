@@ -91,15 +91,21 @@ public class Plateau {
         int posx = x;
         int posy = y;
         if (mis == Missile.RECO) {
-            posx = -1;
-            posy = -1;
+            boolean find = false;
+            posx--;
+            posy--;
             for (int i = 0; i < Missile.RECO.getZone().length; i++) {
                 for (int j = 0; j < Missile.RECO.getZone()[1].length; j++) {
-                    if (posx >= 0 && posx <= 9) {
-                        
+                    if ((posx >= 0 && posx <= 9) && (posy >= 0 && posy <= 9) && Missile.RECO.getZone()[i][j]) {
+                        if (plt[posx][posy] != null) {
+                            find = true;
+                        }
                     }
+                    posx++;
                 }
+                posy++;
             }
+            if (find) System.out.println("\u001B[31mUn navire a été détecté dans cette zone !\u001B[00m");
         } else {
             this.plt[x][y].hit();
         }
@@ -109,9 +115,10 @@ public class Plateau {
         this.tirs[x][y] = true;
     }
 
-    public void placerBateau(int x , char y, Bateau bt,boolean horizontal){
+    public boolean placerBateau(int x , char y, Bateau bt,boolean horizontal){
         int newX = x - 1;
         int newY = y - 'A';
+        boolean placeable = true;
         if (horizontal){
             if (newY<0){
                 newY = 0;
@@ -125,10 +132,14 @@ public class Plateau {
                     newX = newX - 1;
                 }
                 for(int i=0;i<bt.health;i++){
-                    
+                    if(!(this.plt[newY][newX+i]==null)){
+                        placeable = false;
+                    }
                 }
-                for(int i=0;i<bt.health;i++){
-                    this.plt[newY][newX+i] = bt;
+                if(placeable){
+                    for(int i=0;i<bt.health;i++){
+                        this.plt[newY][newX+i] = bt;
+                    }
                 }
             }
             else if(newX < 0){
@@ -136,19 +147,39 @@ public class Plateau {
                     newX = newX + 1;
                 }
                 for(int i=0;i<bt.health;i++){
-                    this.plt[newY][newX+i] = bt;
+                    if(!(this.plt[newY][newX+i]==null)){
+                        placeable = false;
+                        return placeable;
+                    }
+                }
+                if(placeable){
+                    for(int i=0;i<bt.health;i++){
+                        this.plt[newY][newX+i] = bt;
+                    }
+                }else{
+                    return placeable;
                 }
             }
             else{
-                for(int i = 0;i<bt.health;i++){
-                    this.plt[newY][newX+i] = bt;
+                for(int i=0;i<bt.health;i++){
+                    if(!(this.plt[newY][newX+i]==null)){
+                        placeable = false;
+                    }
                 }
+                if(placeable){
+                    for(int i = 0;i<bt.health;i++){
+                        this.plt[newY][newX+i] = bt;
+                    }
+                }else{
+                    return placeable;
+                }
+                
             }
         }
         else{
-            pivoterBateau(x, y, bt);
+            return pivoterBateau(x, y, bt);
         }
-        
+        return placeable;
     }
 
     public boolean checkIfGameFinished() {
@@ -163,7 +194,8 @@ public class Plateau {
         return true;
     }
 
-    public void pivoterBateau(int x, char y, Bateau bt){
+    public boolean pivoterBateau(int x, char y, Bateau bt){
+        boolean placeable = true;
         int newX = x-1;
         int newY = y-'A';
         if(newX<0){
@@ -177,7 +209,18 @@ public class Plateau {
                 newY = newY - 1;
             }
             for(int i=0;i<bt.health;i++){
-                this.plt[newY+i][newX] = bt;
+                if(!(this.plt[newY+i][newX]==null)){
+                    placeable = false;
+                }
+            }
+            if(placeable){
+                for(int i=0;i<bt.health;i++){
+                    this.plt[newY+i][newX] = bt;
+                }
+                return placeable;
+            }
+            else{
+                return placeable;
             }
         }
         else if(newY < 0){
@@ -185,13 +228,32 @@ public class Plateau {
                 newY = 0;
             }
             for(int i=0;i<bt.health;i++){
-                this.plt[newY+i][newX] = bt;
+                if(!(this.plt[newY+i][newX]==null)){
+                    placeable = false;
+                }
             }
-        }
-        else{
-            for(int i = 0;i<bt.health;i++){
-                this.plt[newY+i][newX] = bt;
-            }
+            if(placeable){
+                for(int i=0;i<bt.health;i++){
+                    this.plt[newY+i][newX] = bt;
+                }
+                return placeable;
         }
     }
+        else{
+            for(int i=0;i<bt.health;i++){
+                if(!(this.plt[newY+i][newX]==null)){
+                    placeable = false;
+                }
+            }
+            if(placeable){
+                for(int i=0;i<bt.health;i++){
+                    this.plt[newY+i][newX] = bt;
+                }
+                return placeable;
+        }
+    }
+        return placeable;
+    
+    }
+
 }
