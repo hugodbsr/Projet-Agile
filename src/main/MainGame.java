@@ -46,7 +46,7 @@ public class MainGame {
         System.out.println();
         diplayText(messages.get(15));
 
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(3);
         
 
         System.out.print(CLEAR);
@@ -76,10 +76,9 @@ public class MainGame {
             boolean playerTurn = true;
 
             while (playerTurn && !gameFinished) {
-                Missile mis = Missile.CLASSIC;
-                System.out.println(messages.get(13));
-                System.out.println(mis.getAllMissiles());
                 Missile missile = Missile.CLASSIC;
+                System.out.println(messages.get(13));
+                System.out.println(missile.getAllMissiles());
                 try {
                     missile = Missile.values()[Integer.parseInt(Saisie.getSaisie()) - 1];
                     System.out.println(CLEAR);
@@ -88,9 +87,12 @@ public class MainGame {
                             throw new WrongMissileSelectionException("Le missile n'est pas encore chargé !");
                         }
                     }
-                } catch (Exception e) {
+                } catch (WrongMissileSelectionException e) {
                     missile = Missile.CLASSIC;
                     System.out.println(e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("\u001B[31mUne erreur est survenue veuillez contacter le support !\u001B[00m");
+                    System.exit(1);
                 }
 
                 System.out.println("Tour n°" + tour);
@@ -128,7 +130,11 @@ public class MainGame {
                     System.out.println(messages.get(6).replace("{Player}", playerName));
                     playerTurn = false;
                 }
-                if(missile != Missile.RECO){
+                if (missile == Missile.HEAVY) {
+                    if (y - 1 >= 0 && y - 1 <= 9) playerPlateau.shooted(x, y - 1);
+                    if (y + 1 >= 0 && y + 1 <= 9) playerPlateau.shooted(x, y + 1);
+                    playerPlateau.shooted(x, y);
+                } else if (missile != Missile.RECO){
                     playerPlateau.shooted(x, y);
                 }
 
@@ -137,11 +143,10 @@ public class MainGame {
                     System.out.println(messages.get(3));
                     break;
                 }
+                TimeUnit.SECONDS.sleep(1);
+                System.out.print(CLEAR);
+                TimeUnit.SECONDS.sleep(1);
             }
-
-            TimeUnit.SECONDS.sleep(1);   
-            System.out.print(CLEAR);
-            TimeUnit.SECONDS.sleep(1);    
 
             if (!gameFinished) {
                 boolean botTurn = true;
@@ -180,7 +185,8 @@ public class MainGame {
                     }
                 }
             }
-
+            
+            tour++;
             TimeUnit.SECONDS.sleep(1);   
             System.out.print(CLEAR);
             TimeUnit.SECONDS.sleep(1);  
