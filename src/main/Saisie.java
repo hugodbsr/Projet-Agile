@@ -24,6 +24,7 @@ public class Saisie {
         boolean correct = false;
         String texte = "";
         while(!correct){
+            System.out.print("Entrez les coordonnées de tir (ex : A5) : "); 
             texte = getSaisie();
             if(texte.length()>1 && texte.length()<4){
                 if((texte.charAt(0)>='A' && texte.charAt(0)<='Z') || (texte.charAt(0)>='a' && texte.charAt(0)<='z')){
@@ -42,7 +43,6 @@ public class Saisie {
                 }  
             }
             System.err.println("Veillez entrer des coordonnées de tir dans le bon format (ex : A5)");
-            System.out.print("Entrez les coordonnées de tir (ex : A5) : "); 
         }
         return texte;
     }

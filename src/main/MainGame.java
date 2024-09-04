@@ -103,7 +103,6 @@ public class MainGame {
 
                 System.out.println("Missile sélectionné : " + missile);
 
-                System.out.print("Entrez les coordonnées de tir (ex : A5) : ");
                 String tir = Saisie.getPositionTir();
 
                 System.out.print(CLEAR);
@@ -127,7 +126,7 @@ public class MainGame {
                         playerTurn = false;
                     }
                 } else {
-                    System.out.println("Tire déjà effectuer, vous perdez un tour !");
+                    System.out.println("Miss !");
                     playerTurn = false;
                 }
                 if (missile == Missile.HEAVY) {
@@ -173,7 +172,7 @@ public class MainGame {
                             botTurn = false;
                         }
                     } else {
-                        System.out.println("Tire déjà effectuer, vous perdez un tour !");
+                        System.out.println("Miss !");
                         botTurn = false;
                     }
                     botPlateau.shooted(botX, botY);
