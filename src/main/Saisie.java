@@ -5,8 +5,9 @@ import java.util.Scanner;
 
 public class Saisie {
 
+    static Scanner sc = new Scanner(System.in);
     public static String getSaisie(){
-        try (Scanner sc = new Scanner(System.in)){
+        try {
             String texte = sc.next();
             return texte;
         } catch (IllegalStateException e) {
@@ -25,13 +26,15 @@ public class Saisie {
         while(!correct){
             texte = getSaisie();
             if(texte.length()>1 || texte.length()<4){
-                if((texte.charAt(0)>='A' && texte.charAt(0)>='Z') || (texte.charAt(0)>='a' && texte.charAt(0)>='z')){
+                if((texte.charAt(0)>='A' && texte.charAt(0)<='Z') || (texte.charAt(0)>='a' && texte.charAt(0)<='z')){
                     texte = Character.toUpperCase(texte.charAt(0)) + texte.substring(1);
-                    if((texte.charAt(1)>='1' && texte.charAt(1)>='9')){
+                    if((texte.charAt(1)>='1' && texte.charAt(1)<='9')){
                         if((texte.length()==3) && texte.charAt(1)=='1'){
                             if((texte.charAt(2)=='0')){
                                 correct = true;
                             }
+                        } else {
+                            correct = true;
                         }
                     }
                 }

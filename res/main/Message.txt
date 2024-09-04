@@ -11,3 +11,4 @@ C'est au tour de {Player} !
 Un {Boat} a été détecté dans cette zone !
 Aucun bateau n'a été détecté dans cette zone !
 La partie commence !
+Quel missile voulez-vous choisir ?

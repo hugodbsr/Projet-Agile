@@ -15,6 +15,7 @@ public class MainGame {
     public static void main(String[] args) throws InterruptedException {
         String botName = "ORDI";
         boolean gameFinished = false;
+        int tour = 0;
 
         System.out.print(CLEAR);
 
@@ -62,13 +63,36 @@ public class MainGame {
             boolean playerTurn = true;
 
             while (playerTurn && !gameFinished) {
+                System.out.println("Tour n°" + tour);
+                System.out.println("Carte de " + botName + " :" + System.lineSeparator());
+                System.out.println(playerPlateau.getHimPlateau(botPlateau) + System.lineSeparator());
+
+                Missile mis = Missile.CLASSIC;
+                System.out.println(messages.get(13));
+                System.out.println(mis.getAllMissiles());
+                Missile missile = Missile.CLASSIC;
+                try {
+                    missile = Missile.values()[Integer.parseInt(Saisie.getSaisie()) - 1];
+                    System.out.println(CLEAR);
+                    if (missile.getDelay() != 0) {
+                        if (tour % missile.getDelay() != 0 || tour == 0) {
+                            throw new WrongMissileSelectionException("Le missile n'est pas encore chargé !");
+                        }
+                    }
+                } catch (Exception e) {
+                    missile = Missile.CLASSIC;
+                    System.out.println(e.getMessage());
+                }
+
                 System.out.println("Carte de " + botName + " :" + System.lineSeparator());
                 System.out.println(playerPlateau.getHimPlateau(botPlateau) + System.lineSeparator());
                 System.out.println("Carte de " + playerName + " :" + System.lineSeparator());
                 System.out.println(playerPlateau.getStringPlateau(botPlateau) + System.lineSeparator());
 
+                System.out.println("Missile sélectionné " + missile);
+
                 System.out.print("Entrez les coordonnées de tir (ex : A5) : ");
-                String tir = Saisie.getSaisie();
+                String tir = Saisie.getPositionTir();
 
                 int x = tir.charAt(0) - 'A';
                 int y = Integer.parseInt(tir.substring(1)) - 1;
