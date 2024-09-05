@@ -87,7 +87,9 @@ public class DeroulementDuJeu {
             } catch (WrongMissileSelectionException e) {
                 missile = Missile.CLASSIC;
                 System.out.println(e.getMessage());
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
+                missile = Missile.CLASSIC;
+            }catch (Exception e) {
                 System.out.println("\u001B[31mUne erreur est survenue, veuillez contacter le support !\u001B[00m");
                 System.exit(1);
             }

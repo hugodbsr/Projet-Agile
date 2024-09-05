@@ -1,0 +1,39 @@
+-------------------------------------------------------
+
+Partie de alex et de ORDI le 2024-09-05 à 13:41:26
+
+-------------------------------------------------------
+
+
+Bateaux de alex
+A|  |  |  |  | B| B| B|  |  |  |
+B|  |  |  |  |  |  |  |  |  |  |
+C| B| B| B|  |  |  |  |  |  |  |
+D|  |  |  |  |  |  |  |  |  |  |
+E|  |  |  |  |  |  | B| B| B| B|
+F|  |  | B|  |  |  |  |  |  |  |
+G|  |  | B|  |  | B| B|  |  |  |
+H|  |  | B|  |  |  |  |  |  |  |
+I|  |  | B|  |  |  |  |  |  |  |
+J|  |  | B|  |  |  |  |  |  |  |
+ | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|
+
+Bateaux de ORDI
+A|  |  |  |  |  |  |  |  |  |  |
+B|  |  |  |  |  | B|  |  |  |  |
+C|  |  |  |  |  | B|  |  | B| B|
+D|  |  |  |  |  | B|  |  |  |  |
+E|  |  |  |  |  | B|  |  |  |  |
+F|  |  | B| B| B| B|  |  |  |  |
+G|  | B|  |  |  |  |  |  |  |  |
+H|  | B|  |  |  |  |  |  |  |  |
+I|  | B|  |  |  |  |  |  |  |  |
+J|  | B|  |  |  |  |  | B| B| B|
+ | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|
+
+
+Un bateau de ORDI a été touché !
+Un bateau de ORDI a été touché !
+Un bateau de ORDI a été touché !
+Un bateau de alex a été touché !
+Le [31mCroiseur[0m de ORDI a été détruit !
