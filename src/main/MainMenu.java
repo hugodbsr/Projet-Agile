@@ -2,12 +2,24 @@ package main;
 
 public class MainMenu {
     public static void main(String[] args) {
-        System.out.println("Welcome to Sink The Boat !" + System.getProperty("line.separator"));
+        System.out.print(String.format("\033[2J"));
+        System.out.print("                    |~\n" + //
+                        "              |/    w\n" + //
+                        "             / (   (|   \\\n" + //
+                        "            /( (/   |)  |\\\n" + //
+                        "     ____  ( (/    (|   | )  ,\n" + //
+                        "    |----\\ (/ |    /|   |'\\ /^;\n" + //
+                        "   \\---*---Y--+-----+---+--/(\n" + //
+                        "    \\------*---*--*---*--/\n" + //
+                        "     '~~ ~~~~~~~~~~~~~~~" + System.getProperty("line.separator"));
+        System.out.println("=================================" + System.getProperty("line.separator"));
+        System.out.println("    Welcome to Sink The Boat !" + System.getProperty("line.separator"));
+        System.out.println("=================================" + System.getProperty("line.separator"));
 
         while(true) {
             System.out.println("Choissisez votre mode de jeu :");
-            System.out.println("\t1. Vs Bot");
-            System.out.println("\t2. Vs autre joueur");
+            System.out.println("    1. Vs Bot");
+            System.out.println("    2. Vs autre joueur");
 
             int choix = verifChoix();
             try {

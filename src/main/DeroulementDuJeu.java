@@ -66,11 +66,13 @@ public class DeroulementDuJeu {
 
     public static boolean gameTurn(String playerName, String opponentName, Plateau playerPlateau, Plateau opponentPlateau, ArrayList<String> messages, int tour) throws InterruptedException {
         boolean playerTurn = true;
+        System.out.print(CLEAR);
 
         System.out.println(messages.get(5).replace("{Player}", playerName));
         TimeUnit.SECONDS.sleep(1);
 
         while (playerTurn) {
+            System.out.print(CLEAR);
             Missile missile = Missile.CLASSIC;
             System.out.println(messages.get(13));
             System.out.println(missile.getAllMissiles());

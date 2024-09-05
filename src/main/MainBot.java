@@ -42,9 +42,9 @@ public class MainBot {
         System.out.print("Entrez 'R' pour placer aléatoirement ou autre pour placer manuellement: ");
         String posBat = Saisie.getSaisie();
         if (posBat.equalsIgnoreCase("R")) {
-            System.out.println(playerPlateau.getStringPlateau(botPlateau));
             DeroulementDuJeu.placeShipsRandomly(playerPlateau);
         } else {
+            System.out.println(playerPlateau.getStringPlateau(botPlateau));
             DeroulementDuJeu.placeShipsManually(playerPlateau, botPlateau);
         }
 

@@ -29,10 +29,10 @@ public class MainLocal {
         TimeUnit.SECONDS.sleep(1);
         
         ArrayList<String> messages = DeroulementDuJeu.loadMessages();
-        DeroulementDuJeu.displayText(messages.get(14));
+        /* DeroulementDuJeu.displayText(messages.get(14));
         TimeUnit.SECONDS.sleep(1);
         System.out.println();
-        DeroulementDuJeu.displayText(messages.get(15));
+        DeroulementDuJeu.displayText(messages.get(15)); */
         
         TimeUnit.SECONDS.sleep(3);
         
