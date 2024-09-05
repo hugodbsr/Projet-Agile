@@ -1,107 +1,48 @@
 package main;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class MainBot {
-
-    final static int TEXTSPEED = 10;
-    final static String CLEAR = String.format("\033[2J");
-    final static String cheminMessage = System.getProperty("user.dir") + "/res/main/Message.txt";
 
     public static void main(String[] args) throws InterruptedException {
         String botName = "ORDI";
         boolean gameFinished = false;
         int tour = 0;
 
-        System.out.print(CLEAR);
-
+        System.out.print(DeroulementDuJeu.CLEAR);
         TimeUnit.SECONDS.sleep(1);
 
         System.out.print("Saisissez votre nom : ");
         String playerName = Saisie.getSaisie();
 
-        System.out.print(CLEAR);
-
+        System.out.print(DeroulementDuJeu.CLEAR);
         TimeUnit.SECONDS.sleep(1);
 
-        // récupération des messages
-        ArrayList<String> messages = new ArrayList<>();
-        try (BufferedReader bw = new BufferedReader(new FileReader(new File(cheminMessage)))) {
-            while (bw.ready()) {
-                messages.add(bw.readLine());
-            }
-        } catch (FileNotFoundException e) {
-            System.err.println(e);
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-
-        diplayText(messages.get(14));
+        // Récupération des messages
+        ArrayList<String> messages = DeroulementDuJeu.loadMessages();
+        DeroulementDuJeu.displayText(messages.get(14));
         TimeUnit.SECONDS.sleep(1);
         System.out.println();
-        diplayText(messages.get(15));
+        DeroulementDuJeu.displayText(messages.get(15));
 
         TimeUnit.SECONDS.sleep(3);
 
-        System.out.print(CLEAR);
+        System.out.print(DeroulementDuJeu.CLEAR);
         TimeUnit.SECONDS.sleep(1);
         System.out.println(messages.get(12));
         TimeUnit.SECONDS.sleep(1);
-        System.out.print(CLEAR);
+        System.out.print(DeroulementDuJeu.CLEAR);
 
         Plateau playerPlateau = new Plateau(true);
         Plateau botPlateau = new Plateau(false);
 
-        // Création et placement des bateaux du joueur
         String posBat = Saisie.getPositionBateau();
-        System.out.println(posBat);
-        char yBat = posBat.charAt(0);
-        int xBat = Integer.parseInt(posBat.substring(1));
-        char HorVer = Saisie.getHorVer().charAt(0);
-        boolean horizontal = (HorVer=='H');
-        playerPlateau.placerBateau(xBat, yBat, new Croiseur(), horizontal);
-        System.out.println(playerPlateau.getStringPlateau(botPlateau));
-        int nboat = 0;
-
-        while(nboat<4){
-            posBat = Saisie.getPositionBateau();
-            System.out.println(posBat);
-            yBat = posBat.charAt(0);
-            xBat = Integer.parseInt(posBat.substring(1));
-            HorVer = Saisie.getHorVer().charAt(0);
-            horizontal = (HorVer=='H');
-            if(nboat==0){
-                if (playerPlateau.placerBateau(xBat, yBat, new Croiseur(), horizontal)){
-                    nboat++;
-                    System.out.println(playerPlateau.getStringPlateau(botPlateau));
-                }
-            }
-            if(nboat==1){
-                if (playerPlateau.placerBateau(xBat, yBat, new Destroyer(), horizontal)){
-                    nboat++;
-                    System.out.println(playerPlateau.getStringPlateau(botPlateau));
-                }
-            }
-            if(nboat==2){
-                if (playerPlateau.placerBateau(xBat, yBat, new Cuirasser(), horizontal)){
-                    nboat++;
-                    System.out.println(playerPlateau.getStringPlateau(botPlateau));
-                }
-            }
-            if(nboat==3){
-                if (playerPlateau.placerBateau(xBat, yBat, new PorteAvion(), horizontal)){
-                    nboat++;
-                    System.out.println(playerPlateau.getStringPlateau(botPlateau));
-                }
-            }
-            
+        if (posBat.equals("R")) {
+            DeroulementDuJeu.placeShipsRandomly(playerPlateau);
+        } else {
+            DeroulementDuJeu.placeShipsManually(playerPlateau, botPlateau);
         }
-        
 
         // Création et placement des bateaux du bot
         botPlateau.placerBateau(3, 'A', new PorteAvion(), true);
@@ -113,133 +54,55 @@ public class MainBot {
         while (!gameFinished) {
             boolean playerTurn = true;
 
-            while (playerTurn && !gameFinished) {
-                Missile missile = Missile.CLASSIC;
-                System.out.println(messages.get(13));
-                System.out.println(missile.getAllMissiles());
-                try {
-                    missile = Missile.values()[Integer.parseInt(Saisie.getSaisie()) - 1];
-                    System.out.println(CLEAR);
-                    if (missile.getDelay() != 0) {
-                        if (tour % missile.getDelay() != 0 || tour == 0) {
-                            throw new WrongMissileSelectionException("Le missile n'est pas encore chargé !");
-                        }
-                    }
-                } catch (WrongMissileSelectionException e) {
-                    missile = Missile.CLASSIC;
-                    System.out.println(e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("\u001B[31mUne erreur est survenue veuillez contacter le support !\u001B[00m");
-                    System.exit(1);
-                }
+            gameFinished = DeroulementDuJeu.gameTurn(playerName, botName, playerPlateau, botPlateau, messages, tour);
+            if (gameFinished) {
+                break;
+            }
+            TimeUnit.SECONDS.sleep(1);
+            System.out.print(DeroulementDuJeu.CLEAR);
+            TimeUnit.SECONDS.sleep(1);
 
-                System.out.println("Tour n°" + tour);
-                System.out.println("Carte de " + botName + " :" + System.lineSeparator());
-                System.out.println(playerPlateau.getHimPlateau(botPlateau) + System.lineSeparator());
-                System.out.println("Carte de " + playerName + " :" + System.lineSeparator());
-                System.out.println(playerPlateau.getStringPlateau(botPlateau) + System.lineSeparator());
+            boolean botTurn = true;
 
-                System.out.println("Missile sélectionné : " + missile);
+            System.out.println(messages.get(5).replace("{Player}", botName));
+            TimeUnit.SECONDS.sleep(1);
 
-                System.out.print("Entrez les coordonnées de tir (ex : A5) : ");
-                String tir = Saisie.getPositionTir();
+            while (botTurn) {
+                int botX = (int) (Math.random() * 10);
+                int botY = (int) (Math.random() * 10);
 
-                System.out.print(CLEAR);
-                TimeUnit.SECONDS.sleep(1);
-
-                int x = tir.charAt(0) - 'A';
-                int y = Integer.parseInt(tir.substring(1)) - 1;
-
-                if (botPlateau.shootAvailable(x, y, missile, playerPlateau)) {
-                    botPlateau.fire(x, y, missile);
-                    Bateau boat = botPlateau.getCase(x, y);
+                if (playerPlateau.shootAvailable(botX, botY, Missile.CLASSIC, botPlateau)) {
+                    playerPlateau.fire(botX, botY, Missile.CLASSIC);
+                    Bateau boat = playerPlateau.getCase(botX, botY);
                     if (boat != null) {
                         if (boat.isSunk()) {
-                            System.out.println(
-                                    messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", botName));
+                            System.out.println(messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}",
+                                    playerName));
                         } else {
-                            System.out.println(messages.get(0).replace("{Player}", botName));
+                            System.out.println(messages.get(0).replace("{Player}", playerName));
                         }
-                        playerTurn = true;
+                        botTurn = true;
                     } else {
-                        System.out.println(messages.get(6).replace("{Player}", playerName)); // Raté
-                        playerTurn = false;
+                        System.out.println(messages.get(6).replace("{Player}", botName));
+                        botTurn = false;
                     }
                 } else {
                     System.out.println("Miss !");
-                    playerTurn = false;
+                    botTurn = false;
                 }
-                if (missile == Missile.HEAVY) {
-                    if (y - 1 >= 0 && y - 1 <= 9)
-                        playerPlateau.shooted(x, y - 1);
-                    if (y + 1 >= 0 && y + 1 <= 9)
-                        playerPlateau.shooted(x, y + 1);
-                    playerPlateau.shooted(x, y);
-                } else if (missile != Missile.RECO) {
-                    playerPlateau.shooted(x, y);
-                }
+                botPlateau.shooted(botX, botY);
 
-                gameFinished = botPlateau.checkIfGameFinished();
+                gameFinished = playerPlateau.checkIfGameFinished();
                 if (gameFinished) {
-                    System.out.println(messages.get(3));
+                    System.out.println(messages.get(4));
                     break;
-                }
-                TimeUnit.SECONDS.sleep(1);
-                System.out.print(CLEAR);
-                TimeUnit.SECONDS.sleep(1);
-            }
-
-            if (!gameFinished) {
-                boolean botTurn = true;
-
-                System.out.println(messages.get(5).replace("{Player}", botName));
-                TimeUnit.SECONDS.sleep(1);
-
-                while (botTurn && !gameFinished) {
-                    int botX = (int) (Math.random() * 10);
-                    int botY = (int) (Math.random() * 10);
-
-                    if (playerPlateau.shootAvailable(botX, botY, Missile.CLASSIC, botPlateau)) {
-                        playerPlateau.fire(botX, botY, Missile.CLASSIC);
-                        Bateau boat = playerPlateau.getCase(botX, botY);
-                        if (boat != null) {
-                            if (boat.isSunk()) {
-                                System.out.println(messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}",
-                                        playerName));
-                            } else {
-                                System.out.println(messages.get(0).replace("{Player}", playerName));
-                            }
-                            botTurn = true;
-                        } else {
-                            System.out.println(messages.get(6).replace("{Player}", botName));
-                            botTurn = false;
-                        }
-                    } else {
-                        System.out.println("Miss !");
-                        botTurn = false;
-                    }
-                    botPlateau.shooted(botX, botY);
-
-                    gameFinished = playerPlateau.checkIfGameFinished();
-                    if (gameFinished) {
-                        System.out.println(messages.get(4));
-                        break;
-                    }
                 }
             }
 
             tour++;
             TimeUnit.SECONDS.sleep(1);
-            System.out.print(CLEAR);
+            System.out.print(DeroulementDuJeu.CLEAR);
             TimeUnit.SECONDS.sleep(1);
         }
     }
-
-    static void diplayText(String texte) throws InterruptedException {
-        for (int i = 0; i < texte.length(); i++) {
-            System.out.print(texte.charAt(i));
-            TimeUnit.MILLISECONDS.sleep(TEXTSPEED);
-        }
-    }
-
 }

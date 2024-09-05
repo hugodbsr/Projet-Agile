@@ -52,8 +52,11 @@ public class Saisie {
         boolean correct = false;
         String texte = "";
         while (!correct) {
-            System.out.print("Entrez les coordonnées du bateau (ex : A5) : ");
+            System.out.print("Entrez les coordonnées du bateau (ex : A5) ou 'R' pour placer aléatoirement: ");
             texte = getSaisie();
+            if (texte.equalsIgnoreCase("R")) {
+                return "R";
+            }
             if (texte.length() > 1 && texte.length() < 4) {
                 if ((texte.charAt(0) >= 'A' && texte.charAt(0) <= 'Z')
                         || (texte.charAt(0) >= 'a' && texte.charAt(0) <= 'z')) {
@@ -80,7 +83,7 @@ public class Saisie {
         boolean correct = false;
         String texte = "";
         while (!correct) {
-            System.out.print("H ou V ? ");
+            System.out.print("Horizontal (H) ou Vertical (V) ? ");
             texte = getSaisie();
             if (texte.length() == 1 ) {
                 if ((texte.charAt(0) == 'H' || texte.charAt(0) == 'V')
