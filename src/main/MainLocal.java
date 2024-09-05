@@ -52,13 +52,9 @@ public class MainLocal {
             System.out.println(player1Plateau.getStringPlateau(player2Plateau));
             DeroulementDuJeu.placeShipsManually(player1Plateau, player2Plateau);
         }
-<<<<<<< HEAD
 
         System.out.println(String.format("\033[2J"));
 
-=======
-        
->>>>>>> refs/remotes/origin/main
         System.out.println("Placement des bateaux pour " + player2Name);
         System.out.print("Entrez 'R' pour placer aléatoirement ou autre pour placer manuellement: ");
         String posBat2 = Saisie.getSaisie();
