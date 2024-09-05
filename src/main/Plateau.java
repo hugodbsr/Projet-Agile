@@ -109,7 +109,19 @@ public class Plateau {
     public boolean shootAvailable(int x, int y, Missile mis, Plateau p) {
         if (mis == Missile.RECO)
             return true;
-        return (this.plt[x][y] != null && !p.tirs[x][y]);
+            int x2 = x;
+            int y2 = y;
+            if (x > 10) {
+                x2 = 10;
+            } else if (x < 0) {
+                x2 = 0;
+            }
+            if (y > 10) {
+                y2 = 10;
+            } else if (x < 0) {
+                y2 = 0;
+            }
+        return (this.plt[x2][y2] != null && !p.tirs[x2][y2]);
     }
 
     public void fire(int x, int y, Missile mis, Plateau ennemy) {
