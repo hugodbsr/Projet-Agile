@@ -109,7 +109,7 @@ public class DeroulementDuJeu {
 
             String msg;
             if (opponentPlateau.shootAvailable(x, y, missile, playerPlateau)) {
-                opponentPlateau.fire(x, y, missile);
+                opponentPlateau.fire(x, y, missile, playerPlateau);
                 Bateau boat = opponentPlateau.getCase(x, y);
                 if (boat != null) {
                     if (boat.isSunk()) {

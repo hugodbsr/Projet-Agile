@@ -75,7 +75,7 @@ public class MainBot {
                 String msg;
 
                 if (playerPlateau.shootAvailable(botX, botY, Missile.CLASSIC, botPlateau)) {
-                    playerPlateau.fire(botX, botY, Missile.CLASSIC);
+                    playerPlateau.fire(botX, botY, Missile.CLASSIC, botPlateau);
                     Bateau boat = playerPlateau.getCase(botX, botY);
                     if (boat != null) {
                         if (boat.isSunk()) {
