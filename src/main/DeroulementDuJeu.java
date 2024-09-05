@@ -71,8 +71,6 @@ public class DeroulementDuJeu {
         System.out.println(messages.get(5).replace("{Player}", playerName));
         TimeUnit.SECONDS.sleep(1);
 
-        Historique.addPlateau(playerPlateau, opponentPlateau);
-
         while (playerTurn) {
             Missile missile = Missile.CLASSIC;
             System.out.println(messages.get(13));

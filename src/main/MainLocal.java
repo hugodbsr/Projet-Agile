@@ -24,24 +24,25 @@ public class MainLocal {
         player2Name = Saisie.getSaisie();
         
         Historique.createGameFile(player1Name, player2Name);
-
+        
         System.out.print(DeroulementDuJeu.CLEAR);
         TimeUnit.SECONDS.sleep(1);
-
+        
         ArrayList<String> messages = DeroulementDuJeu.loadMessages();
         DeroulementDuJeu.displayText(messages.get(14));
         TimeUnit.SECONDS.sleep(1);
         System.out.println();
         DeroulementDuJeu.displayText(messages.get(15));
-
+        
         TimeUnit.SECONDS.sleep(3);
-
+        
         System.out.print(DeroulementDuJeu.CLEAR);
         TimeUnit.SECONDS.sleep(1);
-
+        
         Plateau player1Plateau = new Plateau(true);
         Plateau player2Plateau = new Plateau(true);
 
+        
         System.out.println("Placement des bateaux pour " + player1Name);
         String posBat1 = Saisie.getPositionBateau();
         if (posBat1.equals("R")) {
@@ -49,7 +50,7 @@ public class MainLocal {
         } else {
             DeroulementDuJeu.placeShipsManually(player1Plateau, player2Plateau);
         }
-
+        
         System.out.println("Placement des bateaux pour " + player2Name);
         String posBat2 = Saisie.getPositionBateau();
         if (posBat2.equals("R")) {
@@ -57,7 +58,8 @@ public class MainLocal {
         } else {
             DeroulementDuJeu.placeShipsManually(player2Plateau, player1Plateau);
         }
-
+        
+        Historique.addPlateau(player1Plateau, player2Plateau);
 
         while (!gameFinished) {
             gameFinished = DeroulementDuJeu.gameTurn(player1Name, player2Name, player1Plateau, player2Plateau, messages, tourJ1);

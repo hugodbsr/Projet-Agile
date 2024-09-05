@@ -52,6 +52,7 @@ public class MainBot {
         botPlateau.placerBateau(4, 'G', new Croiseur(), true);
 
         Historique.createGameFile(playerName, "ORDI");
+        Historique.addPlateau(playerPlateau, botPlateau);
 
         while (!gameFinished) {
 
@@ -72,19 +73,26 @@ public class MainBot {
                 int botX = (int) (Math.random() * 10);
                 int botY = (int) (Math.random() * 10);
 
+                String msg;
+
                 if (playerPlateau.shootAvailable(botX, botY, Missile.CLASSIC, botPlateau)) {
                     playerPlateau.fire(botX, botY, Missile.CLASSIC);
                     Bateau boat = playerPlateau.getCase(botX, botY);
                     if (boat != null) {
                         if (boat.isSunk()) {
-                            System.out.println(messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}",
-                                    playerName));
+                            msg = messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", playerName);
+                            Historique.addString(msg);
+                            System.out.println(msg);
                         } else {
-                            System.out.println(messages.get(0).replace("{Player}", playerName));
+                            msg = messages.get(0).replace("{Player}", playerName);
+                            Historique.addString(msg);
+                            System.out.println(msg);
                         }
                         botTurn = true;
                     } else {
-                        System.out.println(messages.get(6).replace("{Player}", botName));
+                        msg = messages.get(6).replace("{Player}", botName);
+                        Historique.addString(msg);
+                        System.out.println(msg);
                         botTurn = false;
                     }
                 } else {
