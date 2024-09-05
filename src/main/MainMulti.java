@@ -105,10 +105,12 @@ public class MainMulti {
         System.out.println("\u001B[31m" + loadFile("Multi.csv").split("\n")[checkRoom(room)].split(";")[1] + "\u001B[00m vs \u001B[34m" + loadFile("Multi.csv").split("\n")[checkRoom(room)].split(";")[2] + "\u001B[00m");
         ourPlt1 = new Plateau(true);
         plt2 = new Plateau(false);
-        String posBat = Saisie.getPositionBateau();
-        if (posBat.equals("R")) {
+        System.out.print("Entrez 'R' pour placer aléatoirement ou autre pour placer manuellement: ");
+        String posBat1 = Saisie.getSaisie();
+        if (posBat1.equalsIgnoreCase("R")) {
             DeroulementDuJeu.placeShipsRandomly(ourPlt1);
         } else {
+            System.out.println(ourPlt1.getStringPlateau(plt2));
             DeroulementDuJeu.placeShipsManually(ourPlt1, plt2);
         }
 
@@ -140,10 +142,12 @@ public class MainMulti {
         System.out.println("\u001B[31m" + loadFile("Multi.csv").split("\n")[checkRoom(room)].split(";")[1] + "\u001B[00m vs \u001B[34m" + loadFile("Multi.csv").split("\n")[checkRoom(room)].split(";")[2] + "\u001B[00m");
         ourPlt2 = new Plateau(true);
         plt1 = new Plateau(false);
-        String posBat = Saisie.getPositionBateau();
-        if (posBat.equals("R")) {
+        System.out.print("Entrez 'R' pour placer aléatoirement ou autre pour placer manuellement: ");
+        String posBat1 = Saisie.getSaisie();
+        if (posBat1.equalsIgnoreCase("R")) {
             DeroulementDuJeu.placeShipsRandomly(ourPlt2);
         } else {
+            System.out.println(ourPlt2.getStringPlateau(plt1));
             DeroulementDuJeu.placeShipsManually(ourPlt2, plt1);
         }
 
@@ -172,7 +176,7 @@ public class MainMulti {
 
     public static void createRoom() {
         try {  
-            FileWriter writer = new FileWriter(PATH + "R" + room + ".csv");
+            FileWriter writer = new FileWriter(PATH + roomFile + ".csv");
             writer.write(loadFile("Multi.csv").split("\n")[checkRoom(room)].split(";")[1] + ";;;\n" + loadFile("Multi.csv").split("\n")[checkRoom(room)].split(";")[2] + ";;;");
             writer.close();
         } catch (Exception e) {
