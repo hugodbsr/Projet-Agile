@@ -45,14 +45,12 @@ public class MainBot {
         }
 
         // Création et placement des bateaux du bot
-        botPlateau.placerBateau(3, 'A', new PorteAvion(), true);
-        botPlateau.placerBateau(8, 'E', new Cuirasser(), false);
-        botPlateau.placerBateau(6, 'F', new Destroyer(), true);
-        botPlateau.placerBateau(2, 'B', new Croiseur(), false);
-        botPlateau.placerBateau(4, 'G', new Croiseur(), true);
+        DeroulementDuJeu.placeBotShipsRandomly(botPlateau);
+
+        Historique.createGameFile(playerName, "ORDI");
+        Historique.addPlateau(playerPlateau, botPlateau);
 
         while (!gameFinished) {
-            boolean playerTurn = true;
 
             gameFinished = DeroulementDuJeu.gameTurn(playerName, botName, playerPlateau, botPlateau, messages, tour);
             if (gameFinished) {
@@ -71,23 +69,30 @@ public class MainBot {
                 int botX = (int) (Math.random() * 10);
                 int botY = (int) (Math.random() * 10);
 
+                String msg;
+
                 if (playerPlateau.shootAvailable(botX, botY, Missile.CLASSIC, botPlateau)) {
                     playerPlateau.fire(botX, botY, Missile.CLASSIC);
                     Bateau boat = playerPlateau.getCase(botX, botY);
                     if (boat != null) {
                         if (boat.isSunk()) {
-                            System.out.println(messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}",
-                                    playerName));
+                            msg = messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", playerName);
+                            Historique.addString(msg);
+                            System.out.println(msg);
                         } else {
-                            System.out.println(messages.get(0).replace("{Player}", playerName));
+                            msg = messages.get(0).replace("{Player}", playerName);
+                            Historique.addString(msg);
+                            System.out.println(msg);
                         }
                         botTurn = true;
                     } else {
-                        System.out.println(messages.get(6).replace("{Player}", botName));
+                        msg = messages.get(6).replace("{Player}", botName);
+                        Historique.addString(msg);
+                        System.out.println(msg);
                         botTurn = false;
                     }
                 } else {
-                    System.out.println("Miss !");
+                    System.out.println("Loupé !");
                     botTurn = false;
                 }
                 botPlateau.shooted(botX, botY);
