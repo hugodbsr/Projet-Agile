@@ -1,29 +1,27 @@
-# Sprint 7
+# Sprint 8
 
 ## Démo + Planification du sprint suivant
 
 ### Ce que nous avons fait durant ce sprint
 
-- Mode multijoueur Local
-- Regroupement du Deroulement du jeu
+- US de révision: Agilité
+- Possibilité de placer les bateaux de façon aléatoire
 
 ### Ce que nous allons faire durant le prochain sprint 
 
-- US de révision : Agilité
 - Mode multijoueur multi-machine
 - Lecture/écriture de fichiers
-- Placement aléatoire des bateaux
 
 ## Rétrospective
 
 ### Sur quoi avons nous butté ?
-Nous avons butté sur la productivité.
+Nous avons butté sur le mode multi-machines.
 * Avez-vous terminé tout ce que vous vous étiez engagé à faire ?
-Nous n'avons pas fini la lecture/écriture de fichiers.
+Nous n'avons pas fini le mode multi machine et pas fait valider l'US de révision.
 * Étiez -vous prêts au moment de la démo ?
 Oui
 
-Nous sommes content car nous rajoutons des modes multijoueurs.
+Nous sommes content car nous avons moins de conflit git.
 ### PDCA
 * De tous ces éléments quel est celui que vous voulez améliorer ?
 La division des US.
