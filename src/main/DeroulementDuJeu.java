@@ -62,7 +62,6 @@ public class DeroulementDuJeu {
                 placed = plateau.placerBateau(xBat, yBat, bateau, horizontal);
             }
         }
-        System.out.println(plateau.getStringPlateau(new Plateau(false)));
     }
 
     public static boolean gameTurn(String playerName, String opponentName, Plateau playerPlateau, Plateau opponentPlateau, ArrayList<String> messages, int tour) throws InterruptedException {
