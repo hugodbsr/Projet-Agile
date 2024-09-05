@@ -91,7 +91,7 @@ public class Plateau {
         return (this.plt[x][y] != null && !p.tirs[x][y]);
     }
 
-    public void fire(int x, int y, Missile mis) {
+    public void fire(int x, int y, Missile mis, Plateau ennemy) {
         int posx = x;
         int posy = y;
         if (mis == Missile.RECO) {
@@ -101,7 +101,7 @@ public class Plateau {
             for (int i = 0; i < Missile.RECO.getZone().length; i++) {
                 for (int j = 0; j < Missile.RECO.getZone()[1].length; j++) {
                     if ((posx >= 0 && posx <= 9) && (posy >= 0 && posy <= 9) && Missile.RECO.getZone()[i][j]) {
-                        if (plt[posx][posy] != null) {
+                        if (ennemy.plt[posx][posy] != null) {
                             find = true;
                         }
                     }
