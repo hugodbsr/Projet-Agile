@@ -64,6 +64,27 @@ public class Plateau {
         return res + " | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|";
     }
 
+    public void setPlateau(String s) {
+        String[] tab = s.split("/");
+        Bateau[][] res = new Bateau[10][10];
+        int idx = 0;
+        for (int i = 0; i < res.length; i++) {
+            for (int j = 0; j < res[1].length; j++) {
+                if (tab[idx].equals("Croiseur")) {
+                    res[i][j] = new Croiseur();
+                } else if (tab[idx].equals("Cuirasser")) {
+                    res[i][j] = new Cuirasser();
+                } else if (tab[idx].equals("Destroyer")) {
+                    res[i][j] = new Destroyer();
+                } else if (tab[idx].equals("PorteAvion")) {
+                    res[i][j] = new PorteAvion();
+                } 
+                idx++;
+            }
+        }
+        plt = res;
+    }
+
     public Bateau[][] getPlateau() {
         return this.plt;
     }
