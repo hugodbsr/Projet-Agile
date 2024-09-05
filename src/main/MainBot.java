@@ -51,8 +51,9 @@ public class MainBot {
         botPlateau.placerBateau(2, 'B', new Croiseur(), false);
         botPlateau.placerBateau(4, 'G', new Croiseur(), true);
 
+        Historique.createGameFile(playerName, "ORDI");
+
         while (!gameFinished) {
-            boolean playerTurn = true;
 
             gameFinished = DeroulementDuJeu.gameTurn(playerName, botName, playerPlateau, botPlateau, messages, tour);
             if (gameFinished) {
@@ -87,7 +88,7 @@ public class MainBot {
                         botTurn = false;
                     }
                 } else {
-                    System.out.println("Miss !");
+                    System.out.println("Loupé !");
                     botTurn = false;
                 }
                 botPlateau.shooted(botX, botY);

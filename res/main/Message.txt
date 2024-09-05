@@ -14,3 +14,4 @@ La partie commence !
 Quel missile voulez-vous choisir ?
 Votre objectif est d'éliminer toute la flotte adverse.
 L'ennemi dispose de 2 croiseur, 1 cuirasser, 1 destroyer et 1 porte-avions.
+Loupé !

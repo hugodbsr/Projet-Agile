@@ -71,6 +71,8 @@ public class DeroulementDuJeu {
         System.out.println(messages.get(5).replace("{Player}", playerName));
         TimeUnit.SECONDS.sleep(1);
 
+        Historique.addPlateau(playerPlateau, opponentPlateau);
+
         while (playerTurn) {
             Missile missile = Missile.CLASSIC;
             System.out.println(messages.get(13));
@@ -108,18 +110,25 @@ public class DeroulementDuJeu {
             int x = tir.charAt(0) - 'A';
             int y = Integer.parseInt(tir.substring(1)) - 1;
 
+            String msg;
             if (opponentPlateau.shootAvailable(x, y, missile, playerPlateau)) {
                 opponentPlateau.fire(x, y, missile);
                 Bateau boat = opponentPlateau.getCase(x, y);
                 if (boat != null) {
                     if (boat.isSunk()) {
-                        System.out.println(messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", opponentName));
+                        msg = messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", opponentName);
+                        Historique.addString(msg);
+                        System.out.println(msg);
                     } else {
-                        System.out.println(messages.get(0).replace("{Player}", opponentName));
+                        msg = messages.get(0).replace("{Player}", opponentName);
+                        Historique.addString(msg);
+                        System.out.println(msg);
                     }
                     playerTurn = true;
                 } else {
-                    System.out.println(messages.get(6).replace("{Player}", playerName)); // Raté
+                    msg = messages.get(6).replace("{Player}", playerName); // Raté
+                    Historique.addString(msg);
+                    System.out.println(msg);
                     playerTurn = false;
                 }
             } else {

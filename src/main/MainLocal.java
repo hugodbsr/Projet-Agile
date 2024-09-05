@@ -8,18 +8,22 @@ public class MainLocal {
     public static void main(String[] args) throws InterruptedException {
         String player1Name = "Joueur 1";
         String player2Name = "Joueur 2";
+
+        
         boolean gameFinished = false;
         int tourJ1 = 0;
         int tourJ2 = 0;
-
+        
         System.out.print(DeroulementDuJeu.CLEAR);
         TimeUnit.SECONDS.sleep(1);
-
+        
         System.out.print("Saisissez le nom du joueur 1 : ");
         player1Name = Saisie.getSaisie();
-
+        
         System.out.print("Saisissez le nom du joueur 2 : ");
         player2Name = Saisie.getSaisie();
+        
+        Historique.createGameFile(player1Name, player2Name);
 
         System.out.print(DeroulementDuJeu.CLEAR);
         TimeUnit.SECONDS.sleep(1);
