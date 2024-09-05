@@ -62,7 +62,6 @@ public class DeroulementDuJeu {
                 placed = plateau.placerBateau(xBat, yBat, bateau, horizontal);
             }
         }
-        System.out.println(plateau.getStringPlateau(new Plateau(false)));
     }
 
     public static boolean gameTurn(String playerName, String opponentName, Plateau playerPlateau, Plateau opponentPlateau, ArrayList<String> messages, int tour) throws InterruptedException {
@@ -108,18 +107,25 @@ public class DeroulementDuJeu {
             int x = tir.charAt(0) - 'A';
             int y = Integer.parseInt(tir.substring(1)) - 1;
 
+            String msg;
             if (opponentPlateau.shootAvailable(x, y, missile, playerPlateau)) {
                 opponentPlateau.fire(x, y, missile);
                 Bateau boat = opponentPlateau.getCase(x, y);
                 if (boat != null) {
                     if (boat.isSunk()) {
-                        System.out.println(messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", opponentName));
+                        msg = messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", opponentName);
+                        Historique.addString(msg);
+                        System.out.println(msg);
                     } else {
-                        System.out.println(messages.get(0).replace("{Player}", opponentName));
+                        msg = messages.get(0).replace("{Player}", opponentName);
+                        Historique.addString(msg);
+                        System.out.println(msg);
                     }
                     playerTurn = true;
                 } else {
-                    System.out.println(messages.get(6).replace("{Player}", playerName)); // Raté
+                    msg = messages.get(6).replace("{Player}", playerName); // Raté
+                    Historique.addString(msg);
+                    System.out.println(msg);
                     playerTurn = false;
                 }
             } else {
