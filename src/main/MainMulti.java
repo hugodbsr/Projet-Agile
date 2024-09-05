@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,6 +16,13 @@ public class MainMulti {
     private static String room, player1, player2, currentPlayer, roomFile;
     private final static String CLEAR = String.format("\033[2J");
     private static Plateau ourPlt1, ourPlt2, plt1, plt2;
+
+    static ArrayList<String> messages = DeroulementDuJeu.loadMessages();
+    static boolean gameFinished = false;
+    static boolean J1Turn = true;
+    static boolean J2Turn = false;
+    static int tourJ1 = 0;
+    static int tourJ2 = 0;
 
     public static String loadFile(String file) {
         String res = new String();
@@ -80,6 +88,14 @@ public class MainMulti {
         if (rooms[idx].split(";").length == 3) return true;
         return false;
     }
+
+    public static boolean checkPlateauNotNull() {
+        String[] rooms = loadFile(roomFile + ".csv").split("\n");
+        if (rooms[0].split(";").length == 2 && rooms[1].split(";").length == 2) return true;
+        System.out.println("J1 : " + rooms[0].split(";").length);
+        System.out.println("J2 : " + rooms[1].split(";").length);
+        return false;
+    }
     
     public static void gamePlayer1() {
         int waitMsg = 0;
@@ -135,6 +151,35 @@ public class MainMulti {
             System.err.println("\u001B[31mUne erreur est survenue veuillez contacter le support !\u001B[00m");
             System.exit(1);
         }
+
+        waitMsg = 0;
+        try {
+            while (!checkPlateauNotNull()) {
+                System.out.println(CLEAR);
+                String waitingMsg = new String();
+                for (int i = 0; i < waitMsg; i++) {
+                    waitingMsg += '.';
+                }
+                System.out.println("En attente d'un joueur " + waitingMsg);
+                TimeUnit.SECONDS.sleep(1);
+                waitMsg++;
+                waitMsg %= 4;
+            }
+        } catch (Exception e) {
+            System.err.println("\u001B[31mUne erreur est survenue veuillez contacter le support !\u001B[00m");
+            System.exit(1);
+        }
+
+        plt2.setPlateau(loadFile(roomFile + ".csv").split("\n")[1].split(";")[1]);
+
+        while (!gameFinished && J1Turn) {
+            try {
+                gameFinished = DeroulementDuJeu.gameTurnMulti(player1, player2, ourPlt1, plt2, messages, tourJ1);
+            } catch (InterruptedException e) {
+                System.err.println("\u001B[31mUne erreur est survenue veuillez contacter le support !\u001B[00m");
+            }
+            tourJ1++;
+        }
     }
     
     public static void gamePlayer2() {
@@ -171,6 +216,35 @@ public class MainMulti {
         } catch (Exception e) {
             System.err.println("\u001B[31mUne erreur est survenue veuillez contacter le support !\u001B[00m");
             System.exit(1);
+        }
+
+        int waitMsg = 0;
+        try {
+            while (!checkPlateauNotNull()) {
+                System.out.println(CLEAR);
+                String waitingMsg = new String();
+                for (int i = 0; i < waitMsg; i++) {
+                    waitingMsg += '.';
+                }
+                System.out.println("En attente d'un joueur " + waitingMsg);
+                TimeUnit.SECONDS.sleep(1);
+                waitMsg++;
+                waitMsg %= 4;
+            }
+        } catch (Exception e) {
+            System.err.println("\u001B[31mUne erreur est survenue veuillez contacter le support !\u001B[00m");
+            System.exit(1);
+        }
+
+        plt1.setPlateau(loadFile(roomFile + ".csv").split("\n")[1].split(";")[1]);
+
+        while (!gameFinished && J2Turn) {
+            try {
+                gameFinished = DeroulementDuJeu.gameTurnMulti(player2, player1, ourPlt2, plt1, messages, tourJ2);
+            } catch (InterruptedException e) {
+                System.err.println("\u001B[31mUne erreur est survenue veuillez contacter le support !\u001B[00m");
+            }
+            tourJ2++;
         }
     }
 

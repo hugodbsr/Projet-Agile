@@ -150,4 +150,92 @@ public class DeroulementDuJeu {
         }
         return false;
     }
+
+    public static boolean gameTurnMulti(String playerName, String opponentName, Plateau playerPlateau, Plateau opponentPlateau, ArrayList<String> messages, int tour) throws InterruptedException {
+        boolean playerTurn = true;
+
+        System.out.println(messages.get(5).replace("{Player}", playerName));
+        TimeUnit.SECONDS.sleep(1);
+
+        while (playerTurn) {
+            Missile missile = Missile.CLASSIC;
+            System.out.println(messages.get(13));
+            System.out.println(missile.getAllMissiles());
+            try {
+                missile = Missile.values()[Integer.parseInt(Saisie.getSaisie()) - 1];
+                System.out.println(CLEAR);
+                if (missile.getDelay() != 0) {
+                    if (tour % missile.getDelay() != 0 || tour == 0) {
+                        throw new WrongMissileSelectionException("Le missile de " + playerName + " n'est pas encore chargé !");
+                    }
+                }
+            } catch (WrongMissileSelectionException e) {
+                missile = Missile.CLASSIC;
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println("\u001B[31mUne erreur est survenue, veuillez contacter le support !\u001B[00m");
+                System.exit(1);
+            }
+
+            System.out.println("Tour n°" + tour);
+            System.out.println("Carte de " + opponentName + " :" + System.lineSeparator());
+            System.out.println(playerPlateau.getHimPlateau(opponentPlateau) + System.lineSeparator());
+            System.out.println("Carte de " + playerName + " :" + System.lineSeparator());
+            System.out.println(playerPlateau.getStringPlateau(opponentPlateau) + System.lineSeparator());
+
+            System.out.println("Missile sélectionné : " + missile);
+
+            System.out.print("Entrez les coordonnées de tir (ex : A5) : ");
+            String tir = Saisie.getPositionTir();
+
+            System.out.print(CLEAR);
+            TimeUnit.SECONDS.sleep(1);
+
+            int x = tir.charAt(0) - 'A';
+            int y = Integer.parseInt(tir.substring(1)) - 1;
+
+            String msg;
+            if (opponentPlateau.shootAvailable(x, y, missile, playerPlateau)) {
+                opponentPlateau.fire(x, y, missile, playerPlateau);
+                Bateau boat = opponentPlateau.getCase(x, y);
+                if (boat != null) {
+                    if (boat.isSunk()) {
+                        msg = messages.get(1).replace("{Boat}", boat.getName()).replace("{Player}", opponentName);
+                        Historique.addString(msg);
+                        System.out.println(msg);
+                    } else {
+                        msg = messages.get(0).replace("{Player}", opponentName);
+                        Historique.addString(msg);
+                        System.out.println(msg);
+                    }
+                    playerTurn = true;
+                } else {
+                    msg = messages.get(6).replace("{Player}", playerName); // Raté
+                    Historique.addString(msg);
+                    System.out.println(msg);
+                    playerTurn = false;
+                }
+            } else {
+                System.out.println(messages.get(16));
+                playerTurn = false;
+            }
+            if (missile == Missile.HEAVY) {
+                if (y - 1 >= 0 && y - 1 <= 9) playerPlateau.shooted(x, y - 1);
+                if (y + 1 >= 0 && y + 1 <= 9) playerPlateau.shooted(x, y + 1);
+                playerPlateau.shooted(x, y);
+            } else if (missile != Missile.RECO) {
+                playerPlateau.shooted(x, y);
+            }
+
+            if (opponentPlateau.checkIfGameFinished()) {
+                System.out.println(messages.get(3));
+                return true;
+            }
+            TimeUnit.SECONDS.sleep(1);
+            System.out.print(CLEAR);
+            TimeUnit.SECONDS.sleep(1);
+        }
+        return false;
+    }
+
 }
