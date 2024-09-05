@@ -36,9 +36,13 @@ public class MainBot {
 
         Plateau playerPlateau = new Plateau(true);
         Plateau botPlateau = new Plateau(false);
-
-        String posBat = Saisie.getPositionBateau();
+        
+        Historique.createGameFile(playerName, "ORDI");
+        
+        System.out.print("Entrez 'R' pour placer aléatoirement ou autre pour placer manuellement: ");
+        String posBat = Saisie.getSaisie();
         if (posBat.equalsIgnoreCase("R")) {
+            System.out.println(playerPlateau.getStringPlateau(botPlateau));
             DeroulementDuJeu.placeShipsRandomly(playerPlateau);
         } else {
             DeroulementDuJeu.placeShipsManually(playerPlateau, botPlateau);
@@ -47,7 +51,6 @@ public class MainBot {
         // Création et placement des bateaux du bot
         DeroulementDuJeu.placeShipsRandomly(botPlateau);
 
-        Historique.createGameFile(playerName, "ORDI");
         Historique.addPlateau(playerPlateau, botPlateau);
 
         while (!gameFinished) {
