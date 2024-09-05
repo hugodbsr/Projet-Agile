@@ -65,6 +65,19 @@ public class DeroulementDuJeu {
         System.out.println(plateau.getStringPlateau(new Plateau(false)));
     }
 
+    public static void placeBotShipsRandomly(Plateau plateau) {
+        Random random = new Random();
+        for (Bateau bateau : BATEAUX) {
+            boolean placed = false;
+            while (!placed) {
+                int xBat = random.nextInt(10) + 1;
+                char yBat = (char) (random.nextInt(10) + 'A');
+                boolean horizontal = random.nextBoolean();
+                placed = plateau.placerBateau(xBat, yBat, bateau, horizontal);
+            }
+        }
+    }
+
     public static boolean gameTurn(String playerName, String opponentName, Plateau playerPlateau, Plateau opponentPlateau, ArrayList<String> messages, int tour) throws InterruptedException {
         boolean playerTurn = true;
 

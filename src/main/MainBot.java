@@ -45,11 +45,7 @@ public class MainBot {
         }
 
         // Création et placement des bateaux du bot
-        botPlateau.placerBateau(3, 'A', new PorteAvion(), true);
-        botPlateau.placerBateau(8, 'E', new Cuirasser(), false);
-        botPlateau.placerBateau(6, 'F', new Destroyer(), true);
-        botPlateau.placerBateau(2, 'B', new Croiseur(), false);
-        botPlateau.placerBateau(4, 'G', new Croiseur(), true);
+        DeroulementDuJeu.placeBotShipsRandomly(botPlateau);
 
         Historique.createGameFile(playerName, "ORDI");
         Historique.addPlateau(playerPlateau, botPlateau);
